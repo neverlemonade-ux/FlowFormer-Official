@@ -227,6 +227,15 @@ def fetch_dataloader(args, TRAIN_DS='C+T+K+S+H'):
     elif args.stage == 'kitti':
         aug_params = {'crop_size': args.image_size, 'min_scale': -0.2, 'max_scale': 0.4, 'do_flip': False}
         train_dataset = KITTI(aug_params, split='training')
+        
+     elif args.stage == 'sintel_custom':
+        aug_params = {'crop_size': args.image_size, 'min_scale': -0.2, 'max_scale': 0.6, 'do_flip': True}
+        # min_scale/max_scale control the random-resize augmentation range --
+        # these are Sintel-tuned values, carried over as a reasonable default.
+        # FILL IN HERE if your data's resolution/motion range is very
+        # different and these need adjusting.
+
+        train_dataset = YourCustomDataset(aug_params)
 
     train_loader = data.DataLoader(train_dataset, batch_size=args.batch_size, 
         pin_memory=False, shuffle=True, num_workers=128, drop_last=True)
