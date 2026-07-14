@@ -196,6 +196,30 @@ class HD1K(FlowDataset):
 
             seq_ix += 1
 
+class Custom(FlowDataset):
+    def __init__(self, aug_params=None, root='datasets/YourData', split='training'):
+        super(YourCustomDataset, self).__init__(aug_params)
+        # sparse=True if your ground-truth flow is sparse (KITTI-style, only
+        # some pixels have valid flow) rather than dense (Sintel-style, every
+        # pixel has a value). If sparse, pass sparse=True to super().__init__()
+        # above instead, and read flow with frame_utils.readFlowKITTI(...)
+        # instead of read_gen(...).
+        # FILL IN HERE: root path, file extensions, folder layout
+
+        image_root = osp.join(root, split)  # FILL IN HERE: your actual folder structure
+        flow_root = osp.join(root, split)   # FILL IN HERE: your actual folder structure
+
+        # FILL IN HERE: populate self.image_list with [img1_path, img2_path]
+        # pairs, and self.flow_list with the matching ground-truth flow path
+        # for each pair, in the same order. Example pattern (adjust globs/
+        # extensions to match your data):
+        #
+        # for scene in os.listdir(image_root):
+        #     image_list = sorted(glob(osp.join(image_root, scene, '*.png')))  # FILL IN HERE: your image extension
+        #     for i in range(len(image_list) - 1):
+        #         self.image_list += [[image_list[i], image_list[i+1]]]
+        #     self.flow_list += sorted(glob(osp.join(flow_root, scene, '*.flo')))  # FILL IN HERE: your flow file extension
+
 
 def fetch_dataloader(args, TRAIN_DS='C+T+K+S+H'):
     """ Create the data loader for the corresponding trainign set """
