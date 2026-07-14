@@ -153,6 +153,8 @@ if __name__ == '__main__':
         from configs.kitti import get_cfg
     elif args.stage == 'autoflow':
         from configs.autoflow import get_cfg
+    elif args.stage == 'sintel_custom':
+        from configs.sintel_custom import get_cfg
 
     cfg = get_cfg()
     cfg.update(vars(args))
